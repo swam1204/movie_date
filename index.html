@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unlock Your Surprise</title>
+  <style>
+    body {
+      background: radial-gradient(circle at top, #1f1c2c, #928dab);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+
+    #codeDisplay {
+      font-size: 2em;
+      letter-spacing: 15px;
+      margin-bottom: 20px;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      gap: 15px;
+    }
+
+    .keypad button {
+      font-size: 1.5em;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff4f81;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .keypad button:hover {
+      background-color: #ff3366;
+    }
+
+    .shake {
+      animation: shake 0.3s;
+    }
+
+    @keyframes shake {
+      0% { transform: translateX(-5px); }
+      25% { transform: translateX(5px); }
+      50% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    Hey love, I know you’ve been feeling a little worn out lately.<br>
+    You haven’t really had a proper break, have you?<br>
+    Well… I’ve planned something special just for you.<br>
+    But to unlock it… you’ll need to enter the secret code. Ready?
+  </h1>
+
+  <div id="codeDisplay">●●●●●●</div>
+  <div class="keypad">
+    <button onclick="press(1)">1</button>
+    <button onclick="press(2)">2</button>
+    <button onclick="press(3)">3</button>
+    <button onclick="press(4)">4</button>
+    <button onclick="press(5)">5</button>
+    <button onclick="press(6)">6</button>
+    <button onclick="press(7)">7</button>
+    <button onclick="press(8)">8</button>
+    <button onclick="press(9)">9</button>
+    <button onclick="clearCode()">C</button>
+    <button onclick="press(0)">0</button>
+    <button onclick="checkCode()">OK</button>
+  </div>
+
+  <script>
+    let input = '';
+    const correctCode = '141024';
+    const display = document.getElementById('codeDisplay');
+
+    function press(num) {
+      if (input.length < 6) {
+        input += num;
+        display.textContent = '●'.repeat(input.length) + ' '.repeat(6 - input.length);
+      }
+    }
+
+    function clearCode() {
+      input = '';
+      display.textContent = '●●●●●●';
+    }
+
+    function checkCode() {
+      if (input === correctCode) {
+        window.location.href = 'invite.html';
+      } else {
+        input = '';
+        display.textContent = '●●●●●●';
+        display.classList.add('shake');
+        setTimeout(() => display.classList.remove('shake'), 300);
+      }
+    }
+  </script>
+</body>
+</html>
